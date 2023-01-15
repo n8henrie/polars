@@ -41,7 +41,7 @@ jobs:
           RUSTFLAGS: --cfg docsrs
         run: |
           cargo clean
-          cargo +nightly doc --features=docs-selection --package polars
+          cargo doc --features=docs-selection --package polars
           if ! grep -rFq '<strong>crate feature <code>' target/doc/polars/; then
             echo "Feature flags didn't work!" > /dev/stderr
             exit 1
