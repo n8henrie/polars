@@ -38,7 +38,7 @@ jobs:
 
       - name: Build Rust documentation
         env:
-          RUSTDOCFLAGS: --cfg docsrs
+          RUSTFLAGS: --cfg docsrs
         run: |
           set -Eeuf -o pipefail
           set -x
