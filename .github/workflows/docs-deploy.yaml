@@ -38,8 +38,15 @@ jobs:
 
       - name: Build Rust documentation
         env:
-          RUSTDOCFLAGS: --cfg docsrs
-        run: cargo doc --features=docs-selection --package polars
+          RUSTFLAGS: --cfg docsrs
+        run: |
+          cargo clean
+          cargo +nightly doc --features=docs-selection --package polars
+          if ! grep -rFq '<strong>crate feature <code>' target/doc/polars/; then
+            echo "Feature flags didn't work!" > /dev/stderr
+            exit 1
+          fi
+
 
       - name: Prepare deployment
         run: |
